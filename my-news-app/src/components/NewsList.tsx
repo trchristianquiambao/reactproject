@@ -1,30 +1,20 @@
-import { useEffect, useState } from 'react'
-import NewsCard from './NewsCard'
+import React from 'react';
+import NewsCard from './NewsCard';
+import { Article } from '../types/articles';
+import '../styles/NewsList.css';
 
-const NewsList = () => {
-  const [articles, setArticles] = useState<any[]>([])
+interface NewsListProps {
+  articles: Article[];
+}
 
-  useEffect(() => {
-    const fetchNews = async () => {
-      const res = await fetch(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${import.meta.env.VITE_NEWS_API_KEY}`)
-      const data = await res.json()
-      setArticles(data.articles)
-    }
-    fetchNews()
-  }, [])
-
+const NewsList: React.FC<NewsListProps> = ({ articles }) => {
   return (
-    <div style={{
-      display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-      gap: '2rem',
-      padding: '2rem 0',
-    }}>
+    <div className="news-list">
       {articles.map((article, index) => (
         <NewsCard key={index} article={article} />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default NewsList
+export default NewsList;

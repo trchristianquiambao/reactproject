@@ -1,15 +1,12 @@
-const Footer = () => {
-    return (
-      <footer style={{
-        backgroundColor: '#001E2B',
-        padding: '1rem',
-        textAlign: 'center',
-        color: '#aaa'
-      }}>
-        &copy; {new Date().getFullYear()} GreenNews. All rights reserved.
-      </footer>
-    )
-  }
-  
-  export default Footer
-  
+import React from 'react';
+import '../styles/Footer.css';
+
+const Footer: React.FC = () => {
+  return (
+    <footer className="footer">
+      <p>© 2025 My News App. All rights reserved.</p>
+    </footer>
+  );
+};
+
+export default Footer;
