@@ -1,6 +1,6 @@
 import React from 'react';
-import NewsCard from './NewsCard';
 import { Article } from '../types/articles';
+import NewsCard from './NewsCard';
 import '../styles/NewsList.css';
 
 interface NewsListProps {
@@ -9,11 +9,19 @@ interface NewsListProps {
 
 const NewsList: React.FC<NewsListProps> = ({ articles }) => {
   return (
-    <div className="news-list">
-      {articles.map((article, index) => (
-        <NewsCard key={index} article={article} />
-      ))}
-    </div>
+    <section className="news-section">
+      <h2 className="section-title">Front Page</h2>
+      <div className="news-list">
+        {articles.map((article, index) => {
+          const layoutType = 'vertical';
+          return (
+            <div key={index} className="news-item">
+              <NewsCard article={article} layoutType={layoutType} />
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 };
 

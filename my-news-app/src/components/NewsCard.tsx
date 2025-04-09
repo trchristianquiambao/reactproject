@@ -4,17 +4,33 @@ import '../styles/NewsCard.css';
 
 interface NewsCardProps {
   article: Article;
+  layoutType: 'vertical' | 'horizontal';
 }
 
-const NewsCard: React.FC<NewsCardProps> = ({ article }) => {
+const NewsCard: React.FC<NewsCardProps> = ({ article, layoutType }) => {
+  const handleCardClick = () => {
+    window.open(article.url, '_blank');
+  };
+
   return (
-    <div className="news-card">
-      <img src={article.urlToImage} alt={article.title} />
-      <div className="news-content">
-        <h3>{article.title}</h3>
-        <p>{article.description}</p>
-        <a href={article.url} target="_blank" rel="noopener noreferrer">Read more</a>
-      </div>
+    <div className={`news-card ${layoutType}`} onClick={handleCardClick}>
+      {layoutType === 'horizontal' ? (
+        <>
+          <img src={article.urlToImage} alt={article.title} className="side-image" />
+          <div className="side-content">
+            <h3>{article.title}</h3>
+            <p>{article.description}</p>
+          </div>
+        </>
+      ) : (
+        <>
+          <img src={article.urlToImage} alt={article.title} />
+          <div className="news-content">
+            <h3>{article.title}</h3>
+            <p>{article.description}</p>
+          </div>
+        </>
+      )}
     </div>
   );
 };

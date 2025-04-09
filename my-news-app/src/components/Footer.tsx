@@ -1,12 +1,8 @@
-import React from 'react';
-import '../styles/Footer.css';
+import React from 'react'
+import '../styles/Footer.css'
 
-const Footer: React.FC = () => {
-  return (
-    <footer className="footer">
-      <p>© 2025 My News App. All rights reserved.</p>
-    </footer>
-  );
-};
+const Footer = () => (
+  <footer className="footer">© 2025 TwistNews. All rights reserved.</footer>
+)
 
-export default Footer;
+export default Footer

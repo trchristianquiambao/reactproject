@@ -8,16 +8,15 @@ import '../styles/global.css';
 
 const Home = () => {
   const [articles, setArticles] = useState<Article[]>([]);
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const [country, setCountry] = useState<string>('us');
-  const [category, setCategory] = useState<string>('general');
+  const [category, setCategory] = useState('general');
 
   useEffect(() => {
-    fetch(
-      `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&q=${searchQuery}&apiKey=${import.meta.env.VITE_NEWS_API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
+    const fetchArticles = async () => {
+      try {
+        const res = await fetch(
+          `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${import.meta.env.VITE_NEWS_API_KEY}`
+        );
+        const data = await res.json();
         const formattedArticles = data.articles.map((item: any) => ({
           title: item.title,
           description: item.description,
@@ -27,18 +26,17 @@ const Home = () => {
           author: item.author,
         }));
         setArticles(formattedArticles);
-      })
-      .catch((err) => console.error('Error fetching articles:', err));
-  }, [country, category, searchQuery]);
+      } catch (error) {
+        console.error('Error fetching articles:', error);
+      }
+    };
+
+    fetchArticles();
+  }, [category]);
 
   return (
     <div>
-      <Header 
-        searchQuery={searchQuery} 
-        setSearchQuery={setSearchQuery} 
-        setCountry={setCountry} 
-        setCategory={setCategory} 
-      />
+      <Header category={category} setCategory={setCategory} />
       <main>
         <NewsList articles={articles} />
       </main>
